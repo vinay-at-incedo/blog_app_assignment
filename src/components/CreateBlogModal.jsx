@@ -1,19 +1,23 @@
+import { BookOutlined, UploadOutlined } from "@ant-design/icons";
 import {
-  Modal,
+  Button,
+  Col,
+  DatePicker,
   Form,
   Input,
-  DatePicker,
-  Select,
-  Upload,
-  Switch,
-  Button,
+  Modal,
   Row,
-  Col,
+  Select,
+  Switch,
+  Upload,
 } from "antd";
 import PropTypes from "prop-types";
-import { BookOutlined, UploadOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import {
+  getAuthorsService,
+  getCategoriesService,
+  getTagsService
+} from "../services/BlogService";
 const { Option } = Select;
 
 const CreateBlogModal = ({
@@ -29,20 +33,17 @@ const CreateBlogModal = ({
   const [tags, setTags] = useState([]);
 
   const fetchRequiredFormData = () => {
-    axios
-      .get("http://localhost:8000/authors")
+    getAuthorsService()
       .then((res) => {
         setAuthors(res.data);
       })
       .catch((e) => console.log(e));
-    axios
-      .get("http://localhost:8000/categories")
+    getCategoriesService()
       .then((res) => {
         setCategories(res.data);
       })
       .catch((e) => console.log(e));
-    axios
-      .get("http://localhost:8000/tags")
+    getTagsService()
       .then((res) => {
         setTags(res.data);
       })

@@ -1,11 +1,15 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Col, Layout, Row, Divider, notification } from "antd";
-import BlogListTable from "./BlogListTable";
+import { Button, Col, Divider, Layout, Row, notification } from "antd";
 import { useEffect, useState } from "react";
+import {
+  createBlogService,
+  deleteBlogService,
+  getAllBlogsService,
+} from "../services/BlogService";
+import BlogListTable from "./BlogListTable";
 import ConfirmDeleteBlogsModal from "./ConfirmDeleteBlogsModal";
 import CreateBlogModal from "./CreateBlogModal";
 const { Content } = Layout;
-import axios from "axios";
 
 const HomePage = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -17,8 +21,7 @@ const HomePage = () => {
 
   const loadBlogData = () => {
     setLoading(true);
-    axios
-      .get("http://localhost:8000/blogs")
+    getAllBlogsService()
       .then((res) => {
         setBlogData(res.data);
         setLoading(false);
@@ -38,14 +41,12 @@ const HomePage = () => {
     data.date = data.date.toISOString();
     // Add Other Fields as empty
     data.comments_count = 0;
-    data.id = blogData.length + 1;
     // Only use this for publishing then remove
     delete data["publish_now"];
     // Multipart File Upload
     delete data["imageFile"];
 
-    axios
-      .post("http://localhost:8000/blogs", data)
+    createBlogService(data)
       .then((res) => {
         notificationAPI.success({
           message: "Blog created successfully!",
@@ -69,11 +70,7 @@ const HomePage = () => {
   };
 
   const deleteSelectedRows = () => {
-    Promise.all(
-      selectedRowKeys.map((id) => {
-        return axios.delete(`http://localhost:8000/blogs/${id}`);
-      })
-    )
+    Promise.all(selectedRowKeys.map((id) => deleteBlogService(id)))
       .then(() => {
         notificationAPI.success({
           message: "Blogs deleted successfully!",
