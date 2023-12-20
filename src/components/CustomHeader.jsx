@@ -17,7 +17,11 @@ const CustomHeader = () => {
       }}
     >
       <div className="logo" style={{ display: "flex", alignItems: "center" }}>
-        <img src={logo} style={{ width: "300px", heigth: "200px" }} />
+        <img
+          src={logo}
+          alt="logo"
+          style={{ width: "300px", heigth: "200px" }}
+        />
       </div>
       {isAuth != null && isAuth && (
         <Space>
@@ -28,6 +32,7 @@ const CustomHeader = () => {
             />
           </Tooltip>
           <Button
+            name="logout"
             type="link"
             icon={<LogoutOutlined />}
             onClick={logout}

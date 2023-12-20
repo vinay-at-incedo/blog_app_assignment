@@ -16,9 +16,21 @@ import { useEffect, useState } from "react";
 import {
   getAuthorsService,
   getCategoriesService,
-  getTagsService
+  getTagsService,
 } from "../services/BlogService";
 const { Option } = Select;
+
+const formItemLayout = {
+  labelAlign: "left",
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 6, offset: 3 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 12 },
+  },
+};
 
 const CreateBlogModal = ({
   isModalOpen,
@@ -56,35 +68,21 @@ const CreateBlogModal = ({
 
   const handleOk = () => {
     setLoading(true);
-    setTimeout(() => {
-      form
-        .validateFields()
-        .then((values) => {
-          form.resetFields();
-          createBlog(values);
-          setLoading(false);
-          setIsModalOpen(false);
-        })
-        .catch((info) => {
-          console.log("Validate Failed:", info);
-          setLoading(false);
-        });
-    }, 1000);
+    form
+      .validateFields()
+      .then((values) => {
+        form.resetFields();
+        createBlog(values);
+        setLoading(false);
+        setIsModalOpen(false);
+      })
+      .catch((info) => {
+        console.log("Validate Failed:", info);
+        setLoading(false);
+      });
   };
 
   const handleCancel = () => setIsModalOpen(false);
-
-  const formItemLayout = {
-    labelAlign: "left",
-    labelCol: {
-      xs: { span: 24 },
-      sm: { span: 6, offset: 3 },
-    },
-    wrapperCol: {
-      xs: { span: 24 },
-      sm: { span: 12 },
-    },
-  };
 
   const normFile = (e) => {
     console.log("Upload event:", e);

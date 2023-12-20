@@ -43,22 +43,16 @@
   ],
   "blogs": [
     {
-      "id": "1",
-      "title": "First Blog",
-      "author": "Bob",
-      "category": "Educational",
-      "tags": ["edtech", "innovation"],
-      "comments_count": 10,
-      "date": "2023-12-11T10:10:00.871Z"
-    },
-    {
-      "id": "2",
-      "title": "Second Blog",
-      "author": "Ken",
-      "category": "Technology",
-      "tags": ["engineering", "innovation"],
-      "comments_count": 15,
-      "date": "2023-12-11T10:10:00.871Z"
+      "date": "2023-12-13T11:27:20.335Z",
+      "title": "Test",
+      "author": "Alice",
+      "category": "Medical",
+      "tags": [
+        "edtech",
+        "engineering"
+      ],
+      "comments_count": 0,
+      "id": "1"
     }
   ]
 }

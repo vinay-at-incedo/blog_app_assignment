@@ -21,19 +21,17 @@ const LoginPage = () => {
 
   const handleLogin = () => {
     setLoading(true);
-    setTimeout(() => {
-      form
-        .validateFields()
-        .then((values) => {
-          form.resetFields();
-          setLoading(false);
-          login(values);
-        })
-        .catch((info) => {
-          console.log("Validate Failed:", info);
-          setLoading(false);
-        });
-    }, 1000);
+    form
+      .validateFields()
+      .then((values) => {
+        form.resetFields();
+        setLoading(false);
+        login(values);
+      })
+      .catch((info) => {
+        console.log("Validate Failed:", info);
+        setLoading(false);
+      });
   };
 
   return (
@@ -56,7 +54,7 @@ const LoginPage = () => {
               },
             ]}
           >
-            <Input placeholder="Username" />
+            <Input placeholder="Email" />
           </Form.Item>
           <Form.Item
             name="password"
@@ -74,7 +72,7 @@ const LoginPage = () => {
                 loading={loading}
                 block
               >
-                Log in
+                Login
               </Button>
             </Col>
           </Row>

@@ -11,7 +11,7 @@ const useAuth = () => {
         sessionStorage.setItem("token", JSON.stringify(data));
         setIsAuth(true);
         setLoggedInUser(data.email);
-        navigate("/blogs");
+        refreshPage();
     };
 
     const logout = () => {

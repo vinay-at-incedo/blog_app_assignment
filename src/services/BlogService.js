@@ -27,7 +27,8 @@ const deleteBlogService = (id) => {
 
 export {
   createBlogService,
-  deleteBlogService, getAllBlogsService,
+  deleteBlogService,
+  getAllBlogsService,
   getAuthorsService,
   getCategoriesService,
   getTagsService

@@ -12,11 +12,9 @@ const ConfirmDeleteBlogsModal = ({
 }) => {
   const handleOk = () => {
     setLoading(true);
-    setTimeout(() => {
-      deleteSelectedRows();
-      setLoading(false);
-      setIsModalOpen(false);
-    }, 1000);
+    deleteSelectedRows();
+    setLoading(false);
+    setIsModalOpen(false);
   };
 
   const handleCancel = () => setIsModalOpen(false);
