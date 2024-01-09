@@ -1,4 +1,4 @@
-import { Table, Tag } from "antd";
+import { Table, Tag, Typography } from "antd";
 import PropTypes from "prop-types";
 
 const columns = [
@@ -7,21 +7,22 @@ const columns = [
     dataIndex: "title",
     key: "title",
     sortDirections: ["ascend", "descend"],
-    sorter: (a, b) => a.title > b.title,
+    sorter: (a, b) => (a.title > b.title ? 1 : a.title < b.title ? -1 : 0),
   },
   {
     title: "Author",
     dataIndex: "author",
     key: "author",
     sortDirections: ["ascend", "descend"],
-    sorter: (a, b) => a.author > b.author,
+    sorter: (a, b) => (a.author > b.author ? 1 : a.author < b.author ? -1 : 0),
   },
   {
     title: "Category",
     dataIndex: "category",
     key: "category",
     sortDirections: ["ascend", "descend"],
-    sorter: (a, b) => a.category - b.category,
+    sorter: (a, b) =>
+      a.category > b.category ? 1 : a.category < b.category ? -1 : 0,
   },
   {
     title: "Tags",
@@ -52,12 +53,19 @@ const columns = [
         dateStyle: "long",
       }).format(Date.parse(date)),
     sortDirections: ["ascend", "descend"],
-    sorter: (a, b) => a.date - b.date,
+    sorter: (a, b) =>
+      new Date(a.date) > new Date(b.date)
+        ? 1
+        : new Date(a.date) < new Date(b.date)
+        ? -1
+        : 0,
+
+    defaultSortOrder: "descend",
   },
 ];
 
 const BlogListTable = ({
-  blogData,
+  dataSource,
   loading,
   selectedRowKeys,
   setSelectedRowKeys,
@@ -65,18 +73,19 @@ const BlogListTable = ({
   return (
     <Table
       title={() => (
-        <div style={{ textAlign: "center", fontWeight: "600" }}>Blog List</div>
+        <Typography.Title level={4} style={{ margin: 0 }}>
+          Blog List
+        </Typography.Title>
       )}
       rowKey="id"
       loading={loading}
       columns={columns}
-      dataSource={blogData}
+      dataSource={dataSource}
       pagination={{
         simple: true,
         size: "small",
-        position: ["topRight"],
+        position: ["bottomRight"],
         showSizeChanger: true,
-        showQuickJumper: true,
       }}
       rowSelection={{
         selectedRowKeys,
@@ -90,11 +99,10 @@ const BlogListTable = ({
 };
 
 BlogListTable.propTypes = {
-  blogData: PropTypes.arrayOf(PropTypes.object),
+  dataSource: PropTypes.arrayOf(PropTypes.object),
   loading: PropTypes.bool,
-  selectedRowKeys: PropTypes.arrayOf(PropTypes.string),
+  selectedRowKeys: PropTypes.arrayOf(PropTypes.number),
   setSelectedRowKeys: PropTypes.func,
 };
-
 
 export default BlogListTable;

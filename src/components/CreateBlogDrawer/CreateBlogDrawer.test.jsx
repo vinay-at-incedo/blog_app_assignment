@@ -1,53 +1,53 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
 import { describe, expect, test, vi } from "vitest";
-import CreateBlogModal from "./CreateBlogModal";
-import userEvent from "@testing-library/user-event";
+import CreateBlogDrawer from "./CreateBlogDrawer";
 
-const setIsModalOpenMock = vi.fn();
+const setIsDrawerOpenMock = vi.fn();
 const createBlogMock = vi.fn();
 const setLoadingMock = vi.fn();
 const loadingMock = false;
 
-describe("CreateBlogModal", () => {
-  test("Should open the CreatBlogModal when isModalOpen is true", async () => {
+describe("CreateBlogDrawer", () => {
+  test("Should open the CreatBlogDrawer when isDrawerOpen is true", async () => {
     await act(async () => {
       render(
-        <CreateBlogModal
-          isModalOpen={true}
-          setIsModalOpen={setIsModalOpenMock}
+        <CreateBlogDrawer
+          isDrawerOpen={true}
+          setIsDrawerOpen={setIsDrawerOpenMock}
           createBlog={createBlogMock}
           loading={loadingMock}
           setLoading={setLoadingMock}
         />
       );
     });
-    const modalElement = screen.getByText(/Create Blog/i);
-    expect(modalElement).toBeInTheDocument();
+    const drawerElement = screen.getByText(/Create Blog/i);
+    expect(drawerElement).toBeInTheDocument();
   });
 
-  test("Should not open the CreatBlogModal when isModalOpen is false", async () => {
+  test("Should not open the CreatBlogDrawer when isDrawerOpen is false", async () => {
     await act(async () => {
       render(
-        <CreateBlogModal
-          isModalOpen={false}
-          setIsModalOpen={setIsModalOpenMock}
+        <CreateBlogDrawer
+          isDrawerOpen={false}
+          setIsDrawerOpen={setIsDrawerOpenMock}
           createBlog={createBlogMock}
           loading={loadingMock}
           setLoading={setLoadingMock}
         />
       );
     });
-    const modalElement = screen.queryByText(/Create Blog/i);
-    expect(modalElement).not.toBeInTheDocument();
+    const drawerElement = screen.queryByText(/Create Blog/i);
+    expect(drawerElement).not.toBeInTheDocument();
   });
 
   test("renders form fields", async () => {
     await act(async () => {
       render(
-        <CreateBlogModal
-          isModalOpen={true}
-          setIsModalOpen={setIsModalOpenMock}
+        <CreateBlogDrawer
+          isDrawerOpen={true}
+          setIsDrawerOpen={setIsDrawerOpenMock}
           createBlog={createBlogMock}
           loading={loadingMock}
           setLoading={setLoadingMock}
@@ -73,9 +73,9 @@ describe("CreateBlogModal", () => {
   test("should validate create blog form input", async () => {
     await act(async () => {
       render(
-        <CreateBlogModal
-          isModalOpen={true}
-          setIsModalOpen={setIsModalOpenMock}
+        <CreateBlogDrawer
+          isDrawerOpen={true}
+          setIsDrawerOpen={setIsDrawerOpenMock}
           createBlog={createBlogMock}
           loading={loadingMock}
           setLoading={setLoadingMock}

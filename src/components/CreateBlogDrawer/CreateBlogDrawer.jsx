@@ -3,12 +3,14 @@ import {
   Button,
   Col,
   DatePicker,
+  Drawer,
   Form,
   Input,
-  Modal,
   Row,
   Select,
   Switch,
+  Typography,
+  AutoComplete,
   Upload,
 } from "antd";
 import PropTypes from "prop-types";
@@ -17,14 +19,14 @@ import {
   getAuthorsService,
   getCategoriesService,
   getTagsService,
-} from "../services/BlogService";
+} from "../../services/BlogService";
 const { Option } = Select;
 
 const formItemLayout = {
   labelAlign: "left",
   labelCol: {
     xs: { span: 24 },
-    sm: { span: 6, offset: 3 },
+    sm: { span: 6, offset: 4 },
   },
   wrapperCol: {
     xs: { span: 24 },
@@ -32,9 +34,9 @@ const formItemLayout = {
   },
 };
 
-const CreateBlogModal = ({
-  isModalOpen,
-  setIsModalOpen,
+const CreateBlogDrawer = ({
+  isDrawerOpen,
+  setIsDrawerOpen,
   createBlog,
   loading,
   setLoading,
@@ -74,7 +76,7 @@ const CreateBlogModal = ({
         form.resetFields();
         createBlog(values);
         setLoading(false);
-        setIsModalOpen(false);
+        handleClose(false);
       })
       .catch((info) => {
         console.log("Validate Failed:", info);
@@ -82,7 +84,7 @@ const CreateBlogModal = ({
       });
   };
 
-  const handleCancel = () => setIsModalOpen(false);
+  const handleClose = () => setIsDrawerOpen(false);
 
   const normFile = (e) => {
     console.log("Upload event:", e);
@@ -92,44 +94,18 @@ const CreateBlogModal = ({
     return e?.fileList;
   };
 
-  const renderFooter = () => (
-    <Row gutter={16} style={{ justifyContent: "flex-end" }}>
-      <Col span={5}>
-        <Button key="cancel" block onClick={handleCancel}>
-          Cancel
-        </Button>
-      </Col>
-      <Col span={5}>
-        <Button
-          key="create"
-          block
-          type="primary"
-          loading={loading}
-          onClick={handleOk}
-        >
-          Create
-        </Button>
-      </Col>
-    </Row>
-  );
-
   return (
-    <Modal
+    <Drawer
       title={
-        <div style={{ display: "flex", gap: "10px", paddingBottom: "10px" }}>
-          <BookOutlined style={{ fontSize: "1.2rem" }} />
-          Create Blog
-        </div>
+        <Typography.Title level={4} style={{ margin: 0 }}>
+          <BookOutlined style={{ fontSize: "1.2rem" }} /> Create Blog
+        </Typography.Title>
       }
-      open={isModalOpen}
-      onOk={handleOk}
-      footer={renderFooter}
-      confirmLoading={loading}
-      okText={"Create"}
-      okType="primary"
-      onCancel={handleCancel}
-      width={800}
-      centered
+      open={isDrawerOpen}
+      closable={false}
+      placement="right"
+      size="large"
+      onClose={handleClose}
     >
       <Form
         form={form}
@@ -168,17 +144,22 @@ const CreateBlogModal = ({
           rules={[
             {
               required: true,
-              message: "Please select the author of blog!",
+              message: "Please select or create the author of blog!",
             },
           ]}
         >
-          <Select placeholder="Select an author" showSearch allowClear>
+          <AutoComplete
+            placeholder="Select an author"
+            showSearch
+            allowClear
+            filterOption={true}
+          >
             {authors.map((author) => (
               <Option key={author.id} value={author.name}>
                 {author.name}
               </Option>
             ))}
-          </Select>
+          </AutoComplete>
         </Form.Item>
         <Form.Item
           name="category"
@@ -186,17 +167,21 @@ const CreateBlogModal = ({
           rules={[
             {
               required: true,
-              message: "Please select the category of blog!",
+              message: "Please select or create the category of blog!",
             },
           ]}
         >
-          <Select placeholder="Select a category" showSearch allowClear>
+          <AutoComplete
+            placeholder="Select or create a category"
+            filterOption={true}
+            allowClear
+          >
             {categories.map((category) => (
               <Option key={category.id} value={category.name}>
                 {category.name}
               </Option>
             ))}
-          </Select>
+          </AutoComplete>
         </Form.Item>
         <Form.Item
           name="tags"
@@ -204,13 +189,13 @@ const CreateBlogModal = ({
           rules={[
             {
               required: true,
-              message: "Please select the tags of blog!",
+              message: "Please select or create the tags for blog!",
             },
           ]}
         >
           <Select
-            placeholder="Select related tags"
-            mode="multiple"
+            placeholder="Select or create related tags"
+            mode="tags"
             showSearch
             allowClear
           >
@@ -242,25 +227,38 @@ const CreateBlogModal = ({
             <Button icon={<UploadOutlined />}>Click to upload image</Button>
           </Upload>
         </Form.Item>
-        <Form.Item
-          name="publish_now"
-          label="Publish Now"
-          labelCol={{ xs: { span: 24 }, sm: { span: 3, offset: 9 } }}
-          wrapperCol={{ xs: { span: 24 }, sm: { span: 2 } }}
-        >
+        <Form.Item name="publish_now" label="Publish Now">
           <Switch />
         </Form.Item>
       </Form>
-    </Modal>
+      <Row gutter={12}>
+        <Col xs={24} md={{ offset: 10, span: 6 }}>
+          <Button key="cancel" block onClick={handleClose}>
+            Cancel
+          </Button>
+        </Col>
+        <Col xs={24} md={6}>
+          <Button
+            key="create"
+            block
+            type="primary"
+            loading={loading}
+            onClick={handleOk}
+          >
+            Create
+          </Button>
+        </Col>
+      </Row>
+    </Drawer>
   );
 };
 
-CreateBlogModal.propTypes = {
-  isModalOpen: PropTypes.bool,
-  setIsModalOpen: PropTypes.func,
+CreateBlogDrawer.propTypes = {
+  isDrawerOpen: PropTypes.bool,
+  setIsDrawerOpen: PropTypes.func,
   createBlog: PropTypes.func,
   loading: PropTypes.bool,
   setLoading: PropTypes.func,
 };
 
-export default CreateBlogModal;
+export default CreateBlogDrawer;

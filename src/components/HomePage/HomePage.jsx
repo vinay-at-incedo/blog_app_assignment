@@ -1,23 +1,35 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Col, Divider, Layout, Row, notification } from "antd";
-import { useEffect, useState } from "react";
+import {
+  Button,
+  Col,
+  Divider,
+  Layout,
+  Row,
+  Typography,
+  notification,
+} from "antd";
+import { useContext, useEffect, useState } from "react";
+import AppContext from "../../AppContext";
 import {
   createBlogService,
   deleteBlogService,
   getAllBlogsService,
-} from "../services/BlogService";
-import BlogListTable from "./BlogListTable";
-import ConfirmDeleteBlogsModal from "./ConfirmDeleteBlogsModal";
-import CreateBlogModal from "./CreateBlogModal";
+} from "../../services/BlogService";
+import BlogListTable from "../BlogListTable/BlogListTable";
+import ConfirmDeleteBlogsModal from "../ConfirmDeleteBlogsModal/ConfirmDeleteBlogsModal";
+import CreateBlogDrawer from "../CreateBlogDrawer/CreateBlogDrawer";
 const { Content } = Layout;
 
 const HomePage = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [blogData, setBlogData] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isCreateDrawerOpen, setIsCreateDrawerOpen] = useState(false);
   const [notificationAPI, contextHolder] = notification.useNotification();
+  const { searchQuery } = useContext(AppContext);
+  const [searchedBlogData, setSearchedBlogData] = useState([]);
 
   const loadBlogData = () => {
     setLoading(true);
@@ -35,6 +47,19 @@ const HomePage = () => {
   useEffect(() => {
     loadBlogData();
   }, []);
+
+  useEffect(() => {
+    const searchedData = blogData.filter(
+      (blog) =>
+        blog?.title?.match(new RegExp(searchQuery, "i")) ||
+        blog?.author?.match(new RegExp(searchQuery, "i")) ||
+        blog?.tags.reduce(
+          (result, tag) => result || tag?.match(new RegExp(searchQuery, "i")),
+          false
+        )
+    );
+    setSearchedBlogData(searchedData);
+  }, [searchQuery, blogData]);
 
   const createBlog = (data) => {
     // Convert daysjs Date to JS Date
@@ -66,7 +91,7 @@ const HomePage = () => {
   };
 
   const openCreateBlogForm = () => {
-    setIsCreateModalOpen(true);
+    setIsCreateDrawerOpen(true);
   };
 
   const deleteSelectedRows = () => {
@@ -101,9 +126,9 @@ const HomePage = () => {
   return (
     <Content style={{ padding: "20px 50px", background: "#F5F5F5" }}>
       {contextHolder}
-      <CreateBlogModal
-        isModalOpen={isCreateModalOpen}
-        setIsModalOpen={setIsCreateModalOpen}
+      <CreateBlogDrawer
+        isDrawerOpen={isCreateDrawerOpen}
+        setIsDrawerOpen={setIsCreateDrawerOpen}
         createBlog={createBlog}
         loading={loading}
         setLoading={setLoading}
@@ -115,13 +140,18 @@ const HomePage = () => {
         loading={loading}
         setLoading={setLoading}
       />
-      <Row gutter={[16, 12]} style={{ justifyContent: "flex-end" }}>
-        <Col span={4}>
+      <Row gutter={[16, 12]} align="middle">
+        <Col xs={24} md={6}>
+          <Typography.Title level={4} style={{ margin: 0 }}>
+            Total Blogs: {searchedBlogData?.length}
+          </Typography.Title>
+        </Col>
+        <Col xs={24} md={{ span: 4, offset: 10 }}>
           <Button block icon={<EditOutlined />} onClick={openCreateBlogForm}>
             Create
           </Button>
         </Col>
-        <Col span={4}>
+        <Col xs={24} md={4}>
           <Button
             block
             icon={<DeleteOutlined />}
@@ -134,7 +164,7 @@ const HomePage = () => {
       </Row>
       <Divider orientation="horizontal"></Divider>
       <BlogListTable
-        blogData={blogData}
+        dataSource={searchedBlogData}
         loading={loading}
         selectedRowKeys={selectedRowKeys}
         setSelectedRowKeys={setSelectedRowKeys}

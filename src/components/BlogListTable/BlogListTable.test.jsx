@@ -7,7 +7,7 @@ import userEvent from "@testing-library/user-event";
 describe("BlogListTable", () => {
   const setSelectedRowKeys = vi.fn();
 
-  const blogData = [
+  const dataSource = [
     {
       id: "1",
       title: "Blog 1",
@@ -31,7 +31,7 @@ describe("BlogListTable", () => {
   test("renders without crashing", () => {
     render(
       <BlogListTable
-        blogData={blogData}
+        dataSource={dataSource}
         loading={false}
         selectedRowKeys={[]}
         setSelectedRowKeys={setSelectedRowKeys}
@@ -43,7 +43,7 @@ describe("BlogListTable", () => {
   test("displays the correct number of rows", () => {
     render(
       <BlogListTable
-        blogData={blogData}
+        dataSource={dataSource}
         loading={false}
         selectedRowKeys={[]}
         setSelectedRowKeys={setSelectedRowKeys}
@@ -56,7 +56,7 @@ describe("BlogListTable", () => {
   test("displays the correct data in each row", () => {
     render(
       <BlogListTable
-        blogData={blogData}
+        dataSource={dataSource}
         loading={false}
         selectedRowKeys={[]}
         setSelectedRowKeys={setSelectedRowKeys}
@@ -74,7 +74,7 @@ describe("BlogListTable", () => {
   test("selects rows correctly", async () => {
     render(
       <BlogListTable
-        blogData={blogData}
+        dataSource={dataSource}
         loading={false}
         selectedRowKeys={[]}
         setSelectedRowKeys={setSelectedRowKeys}

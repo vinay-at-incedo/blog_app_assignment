@@ -22,7 +22,7 @@ describe("LoginPage", () => {
     render(<LoginPage />);
     const loginButton = screen.getByRole("button", { name: "Login" });
     userEvent.click(loginButton);
-    const errorMessage = await screen.findByText("Please input your email!");
+    const errorMessage = await screen.findByText("Please input your Email!");
     expect(errorMessage).toBeInTheDocument();
   });
 });

@@ -6,7 +6,7 @@
     },
     {
       "id": 2,
-      "name": "Alice"
+      "name": "Torey"
     }
   ],
   "categories": [
@@ -44,15 +44,120 @@
   "blogs": [
     {
       "date": "2023-12-13T11:27:20.335Z",
-      "title": "Test",
-      "author": "Alice",
-      "category": "Medical",
-      "tags": [
-        "edtech",
-        "engineering"
-      ],
+      "title": "Investor Creative Designer",
+      "author": "Izabella",
+      "category": "Grocery",
+      "tags": ["application", "mobile"],
+      "comments_count": 23954,
+      "id": 1
+    },
+    {
+      "date": "2023-12-13T11:27:20.335Z",
+      "title": "Investor Division Assistant",
+      "author": "Vita",
+      "category": "Industrial",
+      "tags": ["bandwidth", "solid state"],
+      "comments_count": 17869,
+      "id": 2
+    },
+    {
+      "date": "2023-12-13T11:27:20.335Z",
+      "title": "Forward Web Liaison",
+      "author": "Estell",
+      "category": "Toys",
+      "tags": ["port", "digital"],
+      "comments_count": 99801,
+      "id": 3
+    },
+    {
+      "date": "2023-12-13T11:27:20.335Z",
+      "title": "Forward Infrastructure Supervisor",
+      "author": "Amir",
+      "category": "Grocery",
+      "tags": ["matrix", "auxiliary"],
+      "comments_count": 83647,
+      "id": 4
+    },
+    {
+      "date": "2023-12-13T11:27:20.335Z",
+      "title": "Internal Interactions Agent",
+      "author": "Maryjane",
+      "category": "Garden",
+      "tags": ["array", "bluetooth"],
+      "comments_count": 73948,
+      "id": 5
+    },
+    {
+      "date": "2023-12-13T11:27:20.335Z",
+      "title": "Lead Communications Technician",
+      "author": "Vaughn",
+      "category": "Automotive",
+      "tags": ["alarm", "open-source"],
+      "comments_count": 20242,
+      "id": 6
+    },
+    {
+      "date": "2023-12-13T11:27:20.335Z",
+      "title": "District Marketing Engineer",
+      "author": "Arianna",
+      "category": "Baby",
+      "tags": ["firewall", "multi-byte"],
+      "comments_count": 26460,
+      "id": 7
+    },
+    {
+      "date": "2023-12-13T11:27:20.335Z",
+      "title": "Legacy Division Representative",
+      "author": "Amber",
+      "category": "Grocery",
+      "tags": ["program", "neural"],
+      "comments_count": 22782,
+      "id": 8
+    },
+    {
+      "date": "2023-12-13T11:27:20.335Z",
+      "title": "National Data Coordinator",
+      "author": "Robb",
+      "category": "Automotive",
+      "tags": ["pixel", "bluetooth"],
+      "comments_count": 65583,
+      "id": 9
+    },
+    {
+      "date": "2023-12-13T11:27:20.335Z",
+      "title": "Dynamic Division Analyst",
+      "author": "Kaia",
+      "category": "Beauty",
+      "tags": ["protocol", "haptic"],
+      "comments_count": 60934,
+      "id": 10
+    },
+    {
+      "date": "2023-12-13T11:27:20.335Z",
+      "title": "Human Accounts Designer",
+      "author": "Katrina",
+      "category": "Tools",
+      "tags": ["array", "multi-byte"],
+      "comments_count": 45441,
+      "id": 11
+    },
+    {
+      "date": "2023-12-13T11:27:20.335Z",
+      "title": "Lead Division Consultant",
+      "author": "Mackenzie",
+      "category": "Electronics",
+      "tags": ["hard drive", "back-end"],
+      "comments_count": 90623,
+      "id": 12
+    },
+    {
+      "date": "2024-01-18T09:38:05.758Z",
+      "title": "Latest Blog ",
+      "author": "Vinay",
+      "category": "New Category",
+      "tags": ["New Tags"],
       "comments_count": 0,
-      "id": "1"
+      "id": 13
     }
   ]
 }

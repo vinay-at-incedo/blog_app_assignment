@@ -1,23 +1,23 @@
 import { Button, Col, Form, Input, Row } from "antd";
 import { useState } from "react";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
+
+const formItemLayout = {
+  labelAlign: "left",
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 4, offset: 6 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 12 },
+  },
+};
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const { login } = useAuth();
-
-  const formItemLayout = {
-    labelAlign: "left",
-    labelCol: {
-      xs: { span: 24 },
-      sm: { span: 4, offset: 6 },
-    },
-    wrapperCol: {
-      xs: { span: 24 },
-      sm: { span: 12 },
-    },
-  };
 
   const handleLogin = () => {
     setLoading(true);
@@ -46,11 +46,23 @@ const LoginPage = () => {
           <Form.Item
             name="email"
             label="Email"
+            validateFirst={true}
             rules={[
               {
-                required: true,
-                message: "Please input your email!",
                 type: "email",
+                message: "The input is not valid Email!",
+              },
+              {
+                required: true,
+                message: "Please input your Email!",
+              },
+              {
+                validator: (rule, value) =>
+                  value.split("@")[1] === "incedoinc.com"
+                    ? Promise.resolve()
+                    : Promise.reject(
+                        new Error("Email should be of domain: incedoinc.com !")
+                      ),
               },
             ]}
           >
